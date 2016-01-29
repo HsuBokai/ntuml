@@ -3,13 +3,13 @@
 using namespace std;
 
 #include "data.h"
-#include "pla.h"
+#include "pocket_pla.h"
 
 #define REPEAT 2000
 
 int main(int argc, char* argv[]){
-	if(argc < 2){
-		cerr << argv[0] << " <file_train.data>" << endl;
+	if(argc < 3){
+		cerr << argv[0] << " <file_train.data> <file_test.data>" << endl;
 		return -1;
 	}
 	else cerr << "starting!" << endl;
@@ -17,22 +17,25 @@ int main(int argc, char* argv[]){
 	// read data
 	Data* train = new Data();
 	train->read_data(argv[1]);
+	Data* test = new Data();
+	test->read_data(argv[2]);
 
 	// PLA
-	PLA* pla = new PLA(train);
+	PLA* pla = new PocketPLA(train, test);
 	srand(time(NULL));
-	int iter[REPEAT];
+	int error_rate[REPEAT];
 	for(int i=0; i<REPEAT; ++i){
-		iter[i] = pla->run_pla();
-		//cout << "iter: " << iter[i] << endl;
+		error_rate[i] = pla->run_pla();
+		//cout << "error_rate: " << error_rate[i] << endl;
 	}
-	pla->get_histogram(iter, REPEAT);
+	pla->get_histogram(error_rate, REPEAT);
 	int avg = 0;
 	for(int i=0; i<REPEAT; ++i){
-		avg += iter[i];
+		avg += error_rate[i];
 	}
 	cout << "avg: " << (double)avg / REPEAT << endl;
 
+	delete test;
 	delete train;
 	delete pla;
 	return 0;
