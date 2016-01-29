@@ -1,14 +1,14 @@
-#include<iostream>
-#include<string>
-#include<fstream>
-#include<vector>
-#include<cstdlib>
-#include<ctime>
-using namespace std;
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <cstdlib>
+#include <ctime>
 
-int read_data(vector< vector<double> >& data_x, 
-	vector< int >& data_y,
-	const char filename[])
+#include "q17pla.h"
+
+#define REPEAT 2000
+
+int Q17PLA::read_data(const char filename[])
 {
 	ifstream fs(filename, ifstream::in );
 	string buffer;
@@ -24,7 +24,7 @@ int read_data(vector< vector<double> >& data_x,
 	return 0;
 }
 
-double inner_dot(const double * const w, 
+double Q17PLA::inner_dot(const double * const w, 
 	const vector<double>& x)
 {
 	double sum = 0;
@@ -35,9 +35,7 @@ double inner_dot(const double * const w,
 	return sum;
 }
 
-int check_consistent(const double * const w, 
-	const vector< vector<double> >& data_x, 
-	const vector<int>& data_y,
+int Q17PLA::check_consistent(const double * const w, 
 	const int& start)
 {
 	size_t N = data_y.size();
@@ -52,16 +50,14 @@ int check_consistent(const double * const w,
 	return N;
 }
 
-int PLA(double * const w, 
-	const vector< vector<double> >& data_x, 
-	const vector<int>& data_y)
+int Q17PLA::PLA(double * const w)
 {
 	size_t dimension = data_x[0].size();
 	size_t N = data_y.size();
 	int start = rand() % N;
 	int error_index;
 	int iter = 0;
-	while( (error_index = check_consistent(w, data_x, data_y, start)) < N) {
+	while( (error_index = check_consistent(w, start)) < N) {
 		for(int i=0; i<dimension; ++i){
 			w[i] = w[i] + (double)data_y[error_index] * data_x[error_index][i] * 0.5;
 		}
@@ -72,7 +68,7 @@ int PLA(double * const w,
 	return iter;
 }
 
-int get_histogram(const int iter[], 
+int Q17PLA::get_histogram(const int iter[], 
 	const size_t len)
 {
 	int min=iter[0], max=iter[0];
@@ -95,18 +91,15 @@ int get_histogram(const int iter[],
 	return 0;
 }
 
-#define REPEAT 2000
 
-int main(int argc, char* argv[]){
+int Q17PLA::main(int argc, char* argv[]){
 	if(argc < 2){
 		cerr << argv[0] << " <file_train.data>" << endl;
 		return -1;
 	}
 	else cerr << "starting!" << endl;
 	// read data
-	vector< vector<double> > data_x;
-	vector< int > data_y;
-	read_data(data_x, data_y, argv[1]);
+	read_data(argv[1]);
 	
 	// init w
 	size_t dimension = data_x[0].size();
@@ -117,7 +110,7 @@ int main(int argc, char* argv[]){
 	int iter[REPEAT];
 	for(int i=0; i<REPEAT; ++i){
 		for(int i=0; i<dimension; ++i) w[i] = 0;
-		iter[i] = PLA(w, data_x, data_y);
+		iter[i] = PLA(w);
 		//cout << "iter: " << iter[i] << endl;
 		//for(int i=0; i<dimension; ++i){
 		//	cout << "w[" << i << "]: " << w[i] << endl;
