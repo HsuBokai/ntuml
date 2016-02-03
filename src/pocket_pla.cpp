@@ -31,6 +31,9 @@ int PocketPLA::run_pla(){
 		}
 	}
 
+	// for q19
+	//min_error = testing(w);
+
 	delete [] w_optimal;
 	delete [] w;
 

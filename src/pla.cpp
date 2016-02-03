@@ -60,27 +60,3 @@ int PLA::run_pla()
 	return iter;
 }
 
-int PLA::get_histogram(const int iter[], 
-	const size_t len)
-{
-	int min=iter[0], max=iter[0];
-	for(int i=0; i<len; ++i){
-		if(iter[i] < min) min = iter[i];
-		if(iter[i] > max) max = iter[i];
-	}
-	size_t range = max-min+1;
-	int * const histogram = new int [range];
-	for(int i=0; i<range; ++i){
-		histogram[i] = 0;
-	}
-	for(int i=0; i<len; ++i){
-		histogram[iter[i]-min]++;
-	}
-	for(int i=0; i<range; ++i){
-		if(histogram[i] > 0) cout << min+i << "\t:\t" << histogram[i] << endl;
-	}
-	delete [] histogram;
-	return 0;
-}
-
-

@@ -4,6 +4,7 @@ using namespace std;
 
 #include "data.h"
 #include "pocket_pla.h"
+#include "utils.h"
 
 #define REPEAT 2000
 
@@ -28,7 +29,7 @@ int main(int argc, char* argv[]){
 		error_rate[i] = pla->run_pla();
 		//cout << "error_rate: " << error_rate[i] << endl;
 	}
-	pla->get_histogram(error_rate, REPEAT);
+	get_histogram(error_rate, REPEAT);
 	int avg = 0;
 	for(int i=0; i<REPEAT; ++i){
 		avg += error_rate[i];

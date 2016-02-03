@@ -11,8 +11,6 @@ public:
 	virtual ~PLA(){};
 
 	virtual int run_pla();
-	int get_histogram(const int iter[], 
-		const size_t len);
 	
 protected:
 	Data* train;

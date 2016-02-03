@@ -13,6 +13,10 @@ int Data::read_data(const char filename[]){
 		int y;
 		sscanf(buffer.c_str(), "%lf %lf %lf %lf %d", x+1, x+2, x+3, x+4, &y);
 		x[0] = 1;
+		
+		// for bonus question, scaling x 
+		//for(int i=0; i<5; ++i) x[i] *= 0.01;
+		
 		data_x.push_back( vector<double>(x, x+5) );
 		data_y.push_back( y );
 	}
