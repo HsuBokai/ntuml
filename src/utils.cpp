@@ -1,5 +1,15 @@
 #include <iostream>
+#include <random> // for random_choose
 using namespace std;
+
+static random_device rd;
+
+int random_choose(const vector<int>& arr){
+	int n = arr.size();
+	if(n==1) return arr[0];
+	uniform_int_distribution<int> uni(0, n-1);
+	return arr[ uni(rd) ];
+}
 
 int get_histogram(const int arr[], 
 	const size_t len)

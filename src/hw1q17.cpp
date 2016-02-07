@@ -1,5 +1,6 @@
 #include <iostream>
 #include <ctime>
+#include <vector> // for data.h
 using namespace std;
 
 #include "data.h"
@@ -17,7 +18,7 @@ int main(int argc, char* argv[]){
 
 	// read data
 	Data* train = new Data();
-	train->read_data(argv[1]);
+	train->read_data(argv[1], 4);
 
 	// PLA
 	PLA* pla = new PLA(train);

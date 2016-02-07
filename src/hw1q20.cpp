@@ -1,5 +1,6 @@
 #include <iostream>
 #include <ctime>
+#include <vector> // for data.h
 using namespace std;
 
 #include "data.h"
@@ -16,10 +17,11 @@ int main(int argc, char* argv[]){
 	else cerr << "starting!" << endl;
 
 	// read data
+	const int dim = 4;
 	Data* train = new Data();
-	train->read_data(argv[1]);
+	train->read_data(argv[1], dim);
 	Data* test = new Data();
-	test->read_data(argv[2]);
+	test->read_data(argv[2], dim);
 
 	// PLA
 	PLA* pla = new PocketPLA(train, test);

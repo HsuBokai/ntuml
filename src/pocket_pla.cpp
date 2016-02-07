@@ -1,4 +1,6 @@
 #include <cstdlib>
+#include <vector> // for data.h
+
 #include "data.h"
 #include "pocket_pla.h"
 
