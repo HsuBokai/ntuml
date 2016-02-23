@@ -15,20 +15,22 @@ TARGET3 = decision_stump
 OBJ3 = data.o utils.o sorted_data.o
 TARGET4 = multi_dim_DS
 OBJ4 = $(OBJ3)
-TARGETS = $(TARGET1) $(TARGET2) $(TARGET3) $(TARGET4)
+TARGET5 = logistic
+OBJ5 = data.o sorted_data.o gradient_descent.o utils.o tester.o
+TARGETS = $(TARGET1) $(TARGET2) $(TARGET3) $(TARGET4) $(TARGET5)
 
 
-$(TARGET1): $(OBJ1)
-	$(CC) $(CFLAGS) $(OBJ1) -o $@ $(TARGET1).cpp
 
-$(TARGET2): $(OBJ2)
-	$(CC) $(CFLAGS) $(OBJ2) -o $@ $(TARGET2).cpp
-
-$(TARGET3): $(OBJ3)
-	$(CC) $(CFLAGS) $(OBJ3) -o $@ $(TARGET3).cpp
-
+$(TARGET5): $(OBJ5)
+	$(CC) $(CFLAGS) $(OBJ5) -o $@ $@.cpp
 $(TARGET4): $(OBJ4)
-	$(CC) $(CFLAGS) $(OBJ4) -o $@ $(TARGET4).cpp
+	$(CC) $(CFLAGS) $(OBJ4) -o $@ $@.cpp
+$(TARGET3): $(OBJ3)
+	$(CC) $(CFLAGS) $(OBJ3) -o $@ $@.cpp
+$(TARGET2): $(OBJ2)
+	$(CC) $(CFLAGS) $(OBJ2) -o $@ $@.cpp
+$(TARGET1): $(OBJ1)
+	$(CC) $(CFLAGS) $(OBJ1) -o $@ $@.cpp
 
 %.o: %.cpp
 	$(CC) $(CFLAGS) $(INCS) -c $<
