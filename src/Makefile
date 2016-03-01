@@ -19,18 +19,18 @@ TARGET5 = logistic
 OBJ5 = data.o sorted_data.o gradient_descent.o utils.o tester.o
 TARGETS = $(TARGET1) $(TARGET2) $(TARGET3) $(TARGET4) $(TARGET5)
 
-
-
+newton: newton.o
+	$(CC) $(CFLAGS) $< -o $@
 $(TARGET5): $(OBJ5)
-	$(CC) $(CFLAGS) $(OBJ5) -o $@ $@.cpp
+	$(CC) $(CFLAGS) $^ -o $@ $@.cpp
 $(TARGET4): $(OBJ4)
-	$(CC) $(CFLAGS) $(OBJ4) -o $@ $@.cpp
+	$(CC) $(CFLAGS) $^ -o $@ $@.cpp
 $(TARGET3): $(OBJ3)
-	$(CC) $(CFLAGS) $(OBJ3) -o $@ $@.cpp
+	$(CC) $(CFLAGS) $^ -o $@ $@.cpp
 $(TARGET2): $(OBJ2)
-	$(CC) $(CFLAGS) $(OBJ2) -o $@ $@.cpp
+	$(CC) $(CFLAGS) $^ -o $@ $@.cpp
 $(TARGET1): $(OBJ1)
-	$(CC) $(CFLAGS) $(OBJ1) -o $@ $@.cpp
+	$(CC) $(CFLAGS) $^ -o $@ $@.cpp
 
 %.o: %.cpp
 	$(CC) $(CFLAGS) $(INCS) -c $<
